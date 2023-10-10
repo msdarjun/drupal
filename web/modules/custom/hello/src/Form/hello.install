@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the hello module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the module when it is installed.
+ */
+function hello_install() {
+  // Create a custom database table.
+  if (!db_table_exists('')) {
+    $schema['emp_table'] = [
+      'description' => 'Stores data for the hello module',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique identifier for records in the hello table.',
+        ],
+        'name' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+          'description' => 'The name of the item.',
+        ],
+      ],
+      'primary key' => ['id'],
+    ];
+    db_create_table('hello_table', $schema['hello_table']);
+  }
+
+  // Set some default configuration values.
+  $config = \Drupal::configFactory()->getEditable('hello.settings');
+  $config->set('hello_option', 'default_value');
+  $config->save();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Perform updates to the module as needed when the module is updated.
+ *
+ * @param $sandbox
+ */
+function hello_update_8001(&$sandbox) {
+  // Perform updates for version 8.x-1.0 to 8.x-1.1.
+  // Add/update database tables, fields, or configuration as needed.
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Perform cleanup actions when the module is uninstalled.
+ */
+function hello_uninstall() {
+  // Drop the custom database table when the module is uninstalled.
+  db_drop_table('hello_table');
+
+  // Delete the configuration when the module is uninstalled.
+  \Drupal::configFactory()->getEditable('hello.settings')->delete();
+}
+
+
+?>

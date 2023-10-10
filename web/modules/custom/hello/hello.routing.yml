@@ -1,0 +1,7 @@
+hello.settings:
+  path: '/admin/config/hello/settings'
+  defaults:
+    _form: '\Drupal\hello\Form\helloSettingsForm'
+    _title: 'hello'
+  requirements:
+    _permission: 'administer site configuration'
