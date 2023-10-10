@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function my_custom_module_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.my_custom_module':
+      return '<p>' . t('This is a custom module for Drupal.') . '</p>';
+  }
+}
